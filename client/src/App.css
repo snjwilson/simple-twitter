@@ -1,0 +1,149 @@
+:root {
+  --primary-background-color: black;
+  --primary-text-color: white;
+  --primary-color: #00acee;
+
+  --border-radius-size: 5px;
+}
+
+body {
+  background-color: var(--primary-background-color);
+  color: var(--primary-text-color);
+}
+
+ul {
+  list-style: none;
+}
+
+.App {
+  padding: 0;
+  margin: 0;
+}
+
+.login {
+  width: 25%;
+  margin: 4rem auto;
+}
+
+.login-form {
+  margin-top: 2rem;
+}
+
+.navbar {
+  height: 3rem;
+}
+
+#navbar-nav {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.nav-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+#navbar-logo {
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+}
+
+.feed {
+  width: 40%;
+  height: 100vh;
+  margin: 1rem auto;
+  /* border: 0.2px solid lightslategray; */
+}
+
+.tweet {
+  border: 0.2px solid lightslategray;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+
+.tweet-header {
+  display: flex;
+}
+
+.tweet-footer {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+
+.tweet-footer > svg {
+  cursor: pointer;
+}
+
+.tweet-header > span {
+  margin-left: 1rem;
+  color: rgb(124, 123, 123);
+}
+
+.create-tweet {
+  width: 30%;
+  margin: 2rem auto;
+  border: 0.2px solid slategray;
+  border-radius: var(--border-radius-size);
+  padding: 1rem;
+}
+.create-tweet > h1 {
+  text-align: center;
+}
+.create-tweet > textarea {
+  width: 100%;
+  height: 10rem;
+  padding: 1rem;
+}
+
+.connect {
+  width: 50%;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 0.2px solid slategray;
+}
+.connect > h1 {
+  text-align: center;
+}
+
+.user-card {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.error-span {
+  color: red;
+  padding: 0.2rem 0;
+}
+
+.custom-btn {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  border-radius: 30px;
+  width: 100%;
+  height: 3rem;
+  padding: 1rem 5rem;
+  position: relative;
+}
+
+.custom-btn:hover {
+  cursor: pointer;
+}
+
+.custom-btn > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#show-sign-up-link {
+  text-align: center;
+  padding: 1rem;
+}
