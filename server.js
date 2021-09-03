@@ -17,6 +17,10 @@ app.use(cors());
 // Recognize incoming request as JSON object
 app.use(express.json());
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
 // middleware for passport
 app.use(passport.initialize());
 passportConfig(passport);
