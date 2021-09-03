@@ -6,7 +6,7 @@ function Connect({ user, setUser }) {
   const [users, setUsers] = useState([]);
 
   async function loadUsers() {
-    const response = await axios.get(`http://localhost:5000/users`);
+    const response = await axios.get(`/users`);
     if (!response.data.status) {
       alert(response.data.message);
       return;
@@ -26,7 +26,7 @@ function Connect({ user, setUser }) {
         ...user,
         follows: newUserFollowsArray,
       });
-      const response = await axios.put(`http://localhost:5000/users/follow`, {
+      const response = await axios.put(`/users/follow`, {
         userId: user._id,
         follows: newUserFollowsArray,
       });
@@ -40,7 +40,7 @@ function Connect({ user, setUser }) {
       };
       newUser.follows.push(id);
       setUser(newUser);
-      const response = await axios.put(`http://localhost:5000/users/follow`, {
+      const response = await axios.put(`/users/follow`, {
         userId: user._id,
         follows: newUser.follows,
       });

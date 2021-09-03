@@ -23,7 +23,7 @@ function CreateTweet({ user, authenticated }) {
       ownerId: user._id,
     };
     try {
-      response = await axios.post("http://localhost:5000/posts/", payload);
+      response = await axios.post("/posts", payload);
       if (response.status) {
         alert(`Successfully posted tweet`);
       }

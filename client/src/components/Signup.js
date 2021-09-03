@@ -25,7 +25,7 @@ function Signup() {
     console.log(`Submitting sign up form`);
     let response;
     try {
-      response = await axios.post("http://localhost:5000/users/signup", form);
+      response = await axios.post("/users/signup", form);
       alert(response.data.message);
       if (!response.data.status) {
         setErrors(response.data.errors);

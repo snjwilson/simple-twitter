@@ -23,7 +23,7 @@ function Login({ setAuthenticated, setUser }) {
   async function handleSubmit() {
     let response;
     try {
-      response = await axios.post("http://localhost:5000/users/login", form);
+      response = await axios.post("/users/login", form);
       const {
         data: { token, status, message, errors },
       } = response;

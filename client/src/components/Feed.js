@@ -9,7 +9,7 @@ function Feed(props) {
   async function loadTweets(id) {
     let response;
     try {
-      response = await axios.get(`http://localhost:5000/posts?id=${id}`);
+      response = await axios.get(`/posts?id=${id}`);
       setTweets(response.data.posts);
     } catch (error) {
       console.error(`Something went wrong while fetching tweets`);
