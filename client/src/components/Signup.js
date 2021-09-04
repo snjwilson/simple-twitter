@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Button from "./Button";
 
-function Signup() {
+function Signup({ setType }) {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -12,7 +12,6 @@ function Signup() {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState(false);
-  const history = useHistory();
 
   function handleChange(e) {
     setForm((form) => ({
@@ -30,7 +29,7 @@ function Signup() {
       if (!response.data.status) {
         setErrors(response.data.errors);
       } else {
-        history.push("/login");
+        setType("login");
       }
     } catch (error) {
       console.error(error);
@@ -120,8 +119,8 @@ function Signup() {
         style={{ marginTop: "1rem" }}
         onClick={handleSubmit}
       />
-      <div id="show-sign-up-link">
-        <a href="/login">Back to login</a>
+      <div id="show-sign-up-link" onClick={() => setType("login")}>
+        <a href="#">Back to login</a>
       </div>
     </div>
   );

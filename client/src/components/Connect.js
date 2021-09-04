@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 
-function Connect({ user, setUser }) {
+function Connect({ user }) {
   const [users, setUsers] = useState([]);
 
   async function loadUsers() {
@@ -11,9 +11,13 @@ function Connect({ user, setUser }) {
       alert(response.data.message);
       return;
     }
-    setUsers(
-      response.data.users.filter((twitterUser) => twitterUser._id !== user._id)
-    );
+    if (response.data.users.length > 0) {
+      setUsers(
+        response.data.users.filter(
+          (twitterUser) => twitterUser._id !== user._id
+        )
+      );
+    }
   }
 
   async function follow(id) {
@@ -22,10 +26,17 @@ function Connect({ user, setUser }) {
       const newUserFollowsArray = user.follows.filter(
         (followId) => followId !== id
       );
-      setUser({
-        ...user,
-        follows: newUserFollowsArray,
-      });
+      sessionStorage.setItem(
+        "user",
+        JSON.stringify({
+          ...user,
+          follows: newUserFollowsArray,
+        })
+      );
+      // setUser({
+      //   ...user,
+      //   follows: newUserFollowsArray,
+      // });
       const response = await axios.put(`/users/follow`, {
         userId: user._id,
         follows: newUserFollowsArray,
@@ -39,7 +50,8 @@ function Connect({ user, setUser }) {
         ...user,
       };
       newUser.follows.push(id);
-      setUser(newUser);
+      sessionStorage.setItem("user", JSON.stringify(newUser));
+      // setUser(newUser);
       const response = await axios.put(`/users/follow`, {
         userId: user._id,
         follows: newUser.follows,
@@ -53,15 +65,15 @@ function Connect({ user, setUser }) {
 
   useEffect(() => {
     loadUsers();
-  }, []);
+  });
 
-  return (
+  return users.length > 0 ? (
     <div className="connect">
       {users.map((twitterUser) => (
         <div className="user-card">
           <div className="tweet-header">
             <h4>
-              <a href="/user"></a>
+              <a href="#"></a>
               {twitterUser.firstName + " " + twitterUser.lastName}
             </h4>
             <span>{`@${twitterUser.email.split("@")[0]}`}</span>
@@ -80,6 +92,8 @@ function Connect({ user, setUser }) {
         </div>
       ))}
     </div>
+  ) : (
+    <div className="message">There are no users to follow</div>
   );
 }
 

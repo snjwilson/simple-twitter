@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Tweet from "./Tweet";
 
-function Feed(props) {
-  const history = useHistory();
+function Feed() {
+  const user = JSON.parse(sessionStorage.getItem("user"));
   const [tweets, setTweets] = useState([]);
   async function loadTweets(id) {
     let response;
@@ -16,21 +15,20 @@ function Feed(props) {
     }
   }
   useEffect(() => {
-    if (props.user) {
-      loadTweets(props.user._id);
+    if (user) {
+      loadTweets(user._id);
     }
-  }, [props]);
+  });
 
-  // useEffect(() => {
-  //   if (!props.authenticated) {
-  //     history.push("/login");
-  //   }
-  // }, []);
   return (
     <div className="feed">
-      {tweets
-        ? tweets.map((tweet) => <Tweet tweet={tweet} />)
-        : "You are up to date"}
+      {tweets.length > 0 ? (
+        tweets.map((tweet) => <Tweet tweet={tweet} />)
+      ) : (
+        <div className="message">
+          You are up to date connect with more people
+        </div>
+      )}
     </div>
   );
 }

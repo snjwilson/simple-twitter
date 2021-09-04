@@ -1,19 +1,17 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import Button from "./Button";
 
-function Navbar({ setUser, setAuthenticated, user, authenticated }) {
+function Navbar() {
   const history = useHistory();
 
   function handleLogout() {
     console.log(`loggin out`);
-    setUser({});
-    setAuthenticated(false);
-    localStorage.removeItem("jwtToken");
+    sessionStorage.clear();
     history.push("/login");
   }
 
-  return authenticated ? (
+  return (
     <nav className="navbar">
       <div id="navbar-logo" onClick={() => history.push("/")}>
         <svg
@@ -43,9 +41,7 @@ function Navbar({ setUser, setAuthenticated, user, authenticated }) {
             style={{
               height: "3rem",
             }}
-            onClick={() => {
-              history.push("/new");
-            }}
+            onClick={() => history.push("/new")}
           ></Button>
         </li>
         <li className="nav-item">
@@ -54,14 +50,12 @@ function Navbar({ setUser, setAuthenticated, user, authenticated }) {
             style={{
               height: "3rem",
             }}
-            onClick={() => {
-              history.push("/users");
-            }}
+            onClick={() => history.push("/users")}
           ></Button>
         </li>
       </ul>
     </nav>
-  ) : null;
+  );
 }
 
 export default Navbar;

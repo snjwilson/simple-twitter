@@ -1,10 +1,11 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "./Button";
+import Signup from "./Signup";
 
-function Login({ setAuthenticated, setUser }) {
+function Login({ setToken }) {
+  const [type, setType] = useState("login");
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -25,24 +26,21 @@ function Login({ setAuthenticated, setUser }) {
     try {
       response = await axios.post("/users/login", form);
       const {
-        data: { token, status, message, errors },
+        data: { token, status, errors },
       } = response;
       if (!status && errors) {
         setErrors(errors);
+        return;
       }
-      localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
-      // setAuthToken(token);
-      // Decode token to get user data
-      setUser(jwt_decode(token));
-      setAuthenticated(true);
+      setToken(token);
       history.push("/");
     } catch (error) {
       console.error(error);
+      alert(error.message);
     }
   }
 
-  return (
+  return type === "login" ? (
     <div className="login">
       <h1>
         <b>Log in to Twitter</b>
@@ -80,10 +78,17 @@ function Login({ setAuthenticated, setUser }) {
         style={{ marginTop: "1rem" }}
         onClick={handleSubmit}
       />
-      <div id="show-sign-up-link">
-        <a href="/signup">Sign up for twitter</a>
+      <div
+        id="show-sign-up-link"
+        onClick={() => {
+          setType("signup");
+        }}
+      >
+        <a href="#">Sign up for twitter</a>
       </div>
     </div>
+  ) : (
+    <Signup setType={setType} />
   );
 }
 
