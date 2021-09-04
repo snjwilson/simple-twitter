@@ -36,7 +36,6 @@ function Login({ setToken }) {
       history.push("/");
     } catch (error) {
       console.error(error);
-      alert(error.message);
     }
   }
 
